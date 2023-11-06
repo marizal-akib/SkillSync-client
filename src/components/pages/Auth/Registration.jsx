@@ -1,7 +1,9 @@
-import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
+import useAuth from "../../../hooks/useAuth";
+import { updateProfile } from "firebase/auth";
 
 const Registration = () => {
+  const { createUser } = useAuth();
   const handleReg = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -9,8 +11,21 @@ const Registration = () => {
     const email = form.email.value;
     const password = form.password.value;
     const name = form.name.value;
-    const photoURL = form.photoURL.value;
+    const picture = form.photoURL.value;
     console.log(email, password);
+    createUser(email, password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        form.rest();
+        updateProfile(result.user, {
+          displayName: name,
+          photoURL: picture,
+        })
+          .then(() => console.log("update"))
+          .catch((error) => console.log(error));
+      })
+      .catch((error) => console.error(error));
   };
   return (
     <div
@@ -32,7 +47,10 @@ const Registration = () => {
             </Link>
           </p>
         </div>
-        <form onSubmit={handleReg} className="card-body w-full md:w-3/5 mx-auto">
+        <form
+          onSubmit={handleReg}
+          className="card-body w-full md:w-3/5 mx-auto"
+        >
           <div className="form-control">
             <label className="label">
               <span className="label-text">Name</span>

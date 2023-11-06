@@ -1,13 +1,19 @@
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
+import useAuth from "../../../hooks/useAuth";
 const Login = () => {
+  const { emailSingIn, login } = useAuth()
     const handleLogin = (e) => {
         e.preventDefault();
         const form = e.target;
-    
         const email = form.email.value;
         const password = form.password.value;
         console.log(email, password);
+        login(email,password)
+        .then(res => {
+          const user = res.user
+        console.log(user);})
+        .catch(error => console.error(error))
       };
   return (
     <div className="hero  min-h-screen" style={{backgroundImage: 'url(https://i.ibb.co/D7bf18c/successful-business-man-working-laptop-while-drinking-coffee.jpg)'}}>
@@ -19,7 +25,7 @@ const Login = () => {
             Don't have an account? 
             <Link className=" font-semibold" to="/registration"> Sign Up</Link>
           </p>
-          <button className="btn align-middle">
+          <button onClick={emailSingIn} className="btn align-middle">
             <span className="text-base">
               <FcGoogle />
             </span>{" "}
