@@ -42,7 +42,7 @@ const Navbar = () => {
             <Link to="/bid_request">Bid Requests</Link>
           </li>
           <li className="lg:hidden">
-            <Link>My posted jobs</Link>
+            <Link to="/posted_jobs">My posted jobs</Link>
           </li>
           <li>
             <Link to='/my_bids'>My Bids</Link>
@@ -77,7 +77,7 @@ const Navbar = () => {
             <Link to='/add_jobs' className="btn btn-sm bg-[#918a8a] text-blue-950 border-none  text-xs md:btn-md md:text-sm">
               Add job
             </Link>
-            <Link className="btn btn-sm bg-blue-800 text-[#bcb4b4] ml-2 border-none text-xs md:btn-md md:text-sm">
+            <Link to='/posted_jobs' className="btn btn-sm bg-blue-800 text-[#bcb4b4] ml-2 border-none text-xs md:btn-md md:text-sm">
               My posted jobs
             </Link>
           </>
