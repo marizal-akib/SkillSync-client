@@ -1,26 +1,61 @@
 import { Link } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 const Navbar = () => {
+  const { user, logOut } = useAuth();
+  console.log(user);
   const navLink = (
     <>
-      <li>
-        <Link to="/">Home</Link>
-      </li>
-      <li>
-        <Link>Add job</Link>
-      </li>
-      <li>
-        <Link>My Bids</Link>
-      </li>
-      <li>
-        <Link>Bid Requests</Link>
-      </li>
-      <li>
-        <Link>My posted jobs</Link>
-      </li>
-      <li className="lg:hidden">
-        <Link >Register/login</Link>
-      </li>
+      {user && (
+        <li className="lg:hidden">
+          <div className="flex flex-col-reverse text-center items-center ">
+            {user.displayName ? (
+              <h2 className="text-[#ff908b] w-full  font-semibold">
+                {user.displayName}
+              </h2>
+            ) : (
+              <h2 className="text-[#ff908b]  font-semibold">{user.email}</h2>
+            )}
+            <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+              <div className="w-30 rounded-full ">
+                {user.photoURL ? (
+                  <img src={user.photoURL} />
+                ) : (
+                  <img src="https://i.ibb.co/XXJqk0N/user.png" alt="" />
+                )}
+              </div>
+            </label>
+          </div>
+          <div className="divider"></div>
+        </li>
+      )}
+
+      {user ? (
+        <>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li className="lg:hidden">
+            <Link to='/add_jobs'>Add job</Link>
+          </li>
+          <li>
+            <Link to="/bid_request">Bid Requests</Link>
+          </li>
+          <li className="lg:hidden">
+            <Link>My posted jobs</Link>
+          </li>
+          <li>
+            <Link to='/my_bids'>My Bids</Link>
+          </li>
+          <li className="lg:hidden">
+            <button onClick={logOut}>Logout</button>
+          </li>
+        </>
+      ) : (
+        <li className="lg:hidden">
+          <Link to="/login">Register/login</Link>
+        </li>
+      )}
     </>
   );
   return (
@@ -36,13 +71,69 @@ const Navbar = () => {
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{navLink}</ul>
+        {user && (
+          <>
+            <div className="divider divider-horizontal "></div>
+            <Link to='/add_jobs' className="btn btn-sm bg-[#918a8a] text-blue-950 border-none  text-xs md:btn-md md:text-sm">
+              Add job
+            </Link>
+            <Link className="btn btn-sm bg-blue-800 text-[#bcb4b4] ml-2 border-none text-xs md:btn-md md:text-sm">
+              My posted jobs
+            </Link>
+          </>
+        )}
       </div>
       <div className="navbar-end">
         <div className="hidden lg:flex">
-          <Link to='/login' className="btn btn-sm   text-xs md:btn-md md:text-sm">Login</Link>
-          <Link to='/registration' className="btn btn-sm  ml-2 text-xs md:btn-md md:text-sm">
-            Sign up
-          </Link>
+          {user ? (
+            <>
+              <div className="flex flex-col-reverse  items-center md:flex-row-reverse">
+                {user.displayName ? (
+                  <h2 className="text-[#ff908b] w-full md:text-base text-xs font-semibold">
+                    {user.displayName}
+                  </h2>
+                ) : (
+                  <h2 className="text-[#ff908b]  md:text-sm text-xs font-semibold">
+                    {user.email}
+                  </h2>
+                )}
+                <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                  <div className="w-10 rounded-full ">
+                    {user.photoURL ? (
+                      <img src={user.photoURL} />
+                    ) : (
+                      <img src="https://i.ibb.co/XXJqk0N/user.png" alt="" />
+                    )}
+                  </div>
+                </label>
+              </div>
+              <button
+                onClick={logOut}
+                className=" btn btn-sm  ml-4 text-xs md:btn-md md:text-sm"
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <Link to='/add_jobs' className="btn btn-sm bg-[#918a8a] text-blue-950 border-none  text-xs md:btn-md md:text-sm">
+                Add job
+              </Link>
+              <div className="divider divider-horizontal "></div>
+              <Link
+                to="/login"
+                className="btn btn-sm   text-xs md:btn-md md:text-sm"
+              >
+                Login
+              </Link>
+              <Link
+                to="/registration"
+                className="btn btn-sm  ml-2 text-xs md:btn-md md:text-sm"
+              >
+                Sign up
+              </Link>
+            </>
+          )}
         </div>
         <div className="dropdown dropdown-bottom  dropdown-left">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">

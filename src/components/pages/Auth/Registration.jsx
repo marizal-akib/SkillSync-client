@@ -6,12 +6,25 @@ const Registration = () => {
   const { createUser } = useAuth();
   const handleReg = (e) => {
     e.preventDefault();
-    const form = e.target;
+    const form = new FormData(e.target);
+    const email = form.get("email");
+    const password = form.get("password");
+    const name = form.get("name");
+    const photo = form.get("photo");
 
-    const email = form.email.value;
-    const password = form.password.value;
-    const name = form.name.value;
-    const picture = form.photoURL.value;
+  // let data = new FormData();
+  // data.append('photo', photo)
+  // console.log(data);
+
+  //   fetch(
+  //     "https://api.imgbb.com/1/upload?key=f5be8da7177edb3e9c0eebc96999f8bc",
+  //     {
+  //       method: "POST",
+  //       body: data,
+  //     }
+  //   )
+  //     .then((res) => res.json())
+  //     .then((data) => console.log(data));
     console.log(email, password);
     createUser(email, password)
       .then((result) => {
@@ -20,7 +33,7 @@ const Registration = () => {
         form.rest();
         updateProfile(result.user, {
           displayName: name,
-          photoURL: picture,
+          photoURL: photo,
         })
           .then(() => console.log("update"))
           .catch((error) => console.log(error));
@@ -90,14 +103,13 @@ const Registration = () => {
 
           <div className="form-control">
             <label className="label">
-              <span className="label-text">PhotoURL</span>
+              <span className="label-text">Profile Picture</span>
             </label>
             <input
-              type="photoURL"
-              name="photoURL"
-              placeholder="photoURL"
+              type="text"
+              name="photo"
               className="input input-bordered"
-              required
+         
             />
             <label className="label">
               <a href="#" className="label-text-alt link link-hover">
