@@ -1,43 +1,47 @@
 import { useEffect, useState } from "react";
 
-const AllJob = () => {
-  const [jobs, setJobs] = useState([]);
-  const [count, setCount] = useState(0);
-  const [currentPage, setCurrentPage] = useState(0);
+
+const GraphicDesign = () => {
+    const [jobs, setJobs] = useState([]);
+    const [count, setCount] = useState(0);
+    const [currentPage, setCurrentPage] = useState(0);
   const [loading, setLoading] = useState(false);
-  const jobPerPage = 9;
-  console.log(jobs.length);
-
-  const numberOfPages = Math.ceil(count / jobPerPage);
-
-  const pages = [...Array(numberOfPages).keys()];
-
-  useEffect(() => {
-    fetch(`http://localhost:5000/jobs?page=${currentPage}&size=${jobPerPage}`)
-      .then((res) => res.json())
-      .then((data) => setJobs(data));
+    const jobPerPage = 9;
+    const category ="Graphic Design"
+    console.log(jobs.length);
+  
+    const numberOfPages = Math.ceil(count / jobPerPage);
+  
+    const pages = [...Array(numberOfPages).keys()];
+  
+    useEffect(() => {
+      fetch(`http://localhost:5000/jobs?page=${currentPage}&size=${jobPerPage}&category=${category}`)
+        .then((res) => res.json())
+        .then((data) => setJobs(data))
+  
     setLoading(true);
   }, [currentPage, jobPerPage]);
+  
+    useEffect(() => {
+         
+      fetch(`http://localhost:5000/all_jobs?&category=${category}`)
+        .then((res) => res.json())
+        .then((data) => setCount(data.length));
+setLoading(true);
+    },[]);
 
-  useEffect(() => {
-    fetch("http://localhost:5000/all_jobs")
-      .then((res) => res.json())
-      .then((data) => setCount(data.length));
-    setLoading(true);
-  }, []);
-
-  const handlePrev = () => {
-    if (currentPage > 0) {
-      setCurrentPage(currentPage - 1);
-    }
-  };
-  const handleNext = () => {
-    if (currentPage < pages.length - 1) {
-      setCurrentPage(currentPage + 1);
-    }
-  };
-  return (
-    <div className="max-w-7xl mx-auto">
+    const handlePrev = () => {
+      if (currentPage > 0) {
+        setCurrentPage(currentPage - 1);
+      }
+    };
+    const handleNext = () => {
+      if (currentPage < pages.length - 1) {
+        setCurrentPage(currentPage + 1);
+      }
+    };
+    return (
+      <div>
       {loading ? (
         <>
           <h2 className="p-4 text-2xl font-semibold">{count} jobs</h2>
@@ -89,7 +93,7 @@ const AllJob = () => {
         <span className="loading loading-infinity loading-lg"></span>
       )}
     </div>
-  );
+    );
 };
 
-export default AllJob;
+export default GraphicDesign;
