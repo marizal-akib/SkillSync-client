@@ -1,7 +1,11 @@
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 const Login = () => {
+  const navigate = useNavigate();
+
   const { emailSingIn, login } = useAuth()
     const handleLogin = (e) => {
         e.preventDefault();
@@ -10,10 +14,15 @@ const Login = () => {
         const password = form.password.value;
         console.log(email, password);
         login(email,password)
-        .then(res => {
-          const user = res.user
-        console.log(user);})
-        .catch(error => console.error(error))
+        .then(result =>{
+          console.log(result.user);
+          navigate(location?.state ? location.state : '/')
+        })
+      .catch(error => {
+        console.error(error)
+        toast("Email / Password doesn't match");
+  
+      })
       };
   return (
     <div className="hero  min-h-screen" style={{backgroundImage: 'url(https://i.ibb.co/D7bf18c/successful-business-man-working-laptop-while-drinking-coffee.jpg)'}}>
@@ -68,6 +77,7 @@ const Login = () => {
           </div>
         </form>
       </div>
+      <ToastContainer />
     </div>
   );
 };

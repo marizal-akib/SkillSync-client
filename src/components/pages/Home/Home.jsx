@@ -9,6 +9,7 @@ import GraphicDesign from "./Tabs/GraphicDesign";
 import Coding from "./Tabs/Coding";
 import VideoEditing from "./Tabs/VideoEditing";
 import How from "./How/How";
+import Qna from "./Qna";
 
 const Home = () => {
   return (
@@ -36,6 +37,7 @@ const Home = () => {
       </Tabs>
         </div>
         <How></How>
+        <Qna></Qna>
     </div>
   );
 };

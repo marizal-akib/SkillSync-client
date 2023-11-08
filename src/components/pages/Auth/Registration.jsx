@@ -1,44 +1,54 @@
 import { Link } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import { updateProfile } from "firebase/auth";
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 const Registration = () => {
   const { createUser } = useAuth();
   const handleReg = (e) => {
     e.preventDefault();
-    const form = new FormData(e.target);
-    const email = form.get("email");
-    const password = form.get("password");
-    const name = form.get("name");
-    const photo = form.get("photo");
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    const name = form.name.value;
+    const picture = form.photo.value;
 
-  // let data = new FormData();
-  // data.append('photo', photo)
-  // console.log(data);
+    if (password.length < 6) {
+      return toast(
+        "The password is less than 6 characters.It should be 6 characters or longer"
+      );
+    } else if (!/[A-Z]/.test(password)) {
+      return toast("The password must contain at least one capital letter.");
+    } else if (!/[!@#$%^&*]/.test(password)) {
+      return toast(
+        "The password must contain at least one special character (!, @, #, $, %, ^, &, or *)."
+      );
+    }
 
-  //   fetch(
-  //     "https://api.imgbb.com/1/upload?key=f5be8da7177edb3e9c0eebc96999f8bc",
-  //     {
-  //       method: "POST",
-  //       body: data,
-  //     }
-  //   )
-  //     .then((res) => res.json())
-  //     .then((data) => console.log(data));
-    console.log(email, password);
     createUser(email, password)
-      .then((result) => {
-        const user = result.user;
-        console.log(user);
-        form.rest();
-        updateProfile(result.user, {
+      .then((res) => {
+        console.log(res.user);
+        Swal.fire({
+          title: "Success!",
+          text: "User created successfully",
+          icon: "success",
+          confirmButtonText: "Cool",
+        });
+        form.reset();
+        updateProfile(res.user, {
           displayName: name,
-          photoURL: photo,
+          photoURL: picture,
         })
           .then(() => console.log("update"))
           .catch((error) => console.log(error));
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        console.error(error);
+        toast(error.message);
+      });
+    console.log(email, password, name, picture);
   };
   return (
     <div
@@ -105,12 +115,7 @@ const Registration = () => {
             <label className="label">
               <span className="label-text">Profile Picture</span>
             </label>
-            <input
-              type="text"
-              name="photo"
-              className="input input-bordered"
-         
-            />
+            <input type="text" name="photo" className="input input-bordered" />
             <label className="label">
               <a href="#" className="label-text-alt link link-hover">
                 Forgot password?
@@ -122,6 +127,7 @@ const Registration = () => {
           </div>
         </form>
       </div>
+      <ToastContainer />
     </div>
   );
 };
