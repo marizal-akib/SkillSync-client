@@ -5,7 +5,7 @@ import Footer from "../commons/Footer";
 
 const Roots = () => {
     return (
-        <div>
+        <div className="font-Lato">
             <Navbar></Navbar>
             <Outlet></Outlet>
             <Footer></Footer>

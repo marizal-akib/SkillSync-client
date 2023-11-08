@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import { Link } from "react-router-dom";
 
 const Coding = () => {
     const [jobs, setJobs] = useState([]);
@@ -44,7 +44,7 @@ setLoading(true);
       <div>
       {loading ? (
         <>
-          <h2 className="p-4 text-2xl font-semibold">{count} jobs</h2>
+          <h2 className="p-4 text-xl font-semibold">{count} jobs</h2>
           <div className="grid md:grid-cols-3 grid-cols-1 gap-4 mx-4">
             {jobs.map((job) => (
               <div key={job._id} className="card  bg-base-100 shadow-xl">
@@ -55,20 +55,20 @@ setLoading(true);
                       {job.category}
                     </div>
                   </h2>
-                  <p>{job.description}</p>
-                  <p>
-                    Price: {job.minPrice}$ - {job.maxPrice}$
+                  <p  className="font-medium text-sm">{job.description}</p>
+                  <p className="font-semibold">
+                    Bid Range: {job.minPrice}$ - {job.maxPrice}$
                   </p>
 
                   <div className="card-actions justify-end">
-                    <button className="btn btn-primary">Bid Now</button>
+                    <Link to={`/job/${job._id}`} className="btn btn-success text-xs rounded-md font-semibold">Bid Now</Link>
                   </div>
                 </div>
               </div>
             ))}
           </div>
           <div className="text-center m-10">
-            <button className="btn rounded-r-none" onClick={handlePrev}>
+            <button className="btn  bg-slate-400 rounded-r-none" onClick={handlePrev}>
               Prev
             </button>
             {pages.map((page) => (
@@ -84,7 +84,7 @@ setLoading(true);
                 {page}
               </button>
             ))}
-            <button className="btn rounded-l-none" onClick={handleNext}>
+            <button className="btn  bg-slate-400 rounded-l-none" onClick={handleNext}>
               Next
             </button>
           </div>

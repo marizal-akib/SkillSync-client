@@ -8,6 +8,7 @@ import Web from "./Tabs/Web";
 import GraphicDesign from "./Tabs/GraphicDesign";
 import Coding from "./Tabs/Coding";
 import VideoEditing from "./Tabs/VideoEditing";
+import How from "./How/How";
 
 const Home = () => {
   return (
@@ -34,6 +35,7 @@ const Home = () => {
         <TabPanel><VideoEditing></VideoEditing></TabPanel>
       </Tabs>
         </div>
+        <How></How>
     </div>
   );
 };
