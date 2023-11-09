@@ -3,9 +3,9 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
-const BidRow = ({ bid }) => {
-    const {
-        _id,
+const ReqRow = ({bid}) => {
+  const {
+    _id,
     jobTitle,
     jobId,
     employerEmail,
@@ -13,16 +13,16 @@ const BidRow = ({ bid }) => {
     offerPrice,
     offerDeadline,
     status,
-} = bid;
-const [current , setCurrent] = useState(status);
+  } = bid;
+  const [current, setCurrent] = useState(status);
 
   const handleComplete = (_id) => {
     console.log(_id);
-    const status = 'Completed';
+    const status = "Completed";
 
     const done = {
-        status
-    }
+      status,
+    };
     Swal.fire({
       title: "Are you sure?",
       text: "Please double check before submitting",
@@ -34,29 +34,28 @@ const [current , setCurrent] = useState(status);
     }).then((result) => {
       if (result.isConfirmed) {
         fetch(`http://localhost:5000/complete_job/${_id}`, {
-            method: "PUT",
-            headers: {
-              "content-type": "application/json",
-            },
-            body: JSON.stringify(done),
-          })
-            .then((res) => res.json())
-            .then((data) => {
-              console.log(data);
-              if ( data.modifiedCount > 0) {
-                console.log("success");
-                setCurrent(done.status)
-                console.log(done.status);
-                
-                Swal.fire({
-                  title: "Success!",
-                  text: "Thank you for your hard work",
-                  icon: "success",
-                  confirmButtonText: "OK",
-                })
-               
-              }
-            });
+          method: "PUT",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(done),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            if (data.modifiedCount > 0) {
+              console.log("success");
+              setCurrent(done.status);
+              console.log(done.status);
+
+              Swal.fire({
+                title: "Success!",
+                text: "Thank you for your hard work",
+                icon: "success",
+                confirmButtonText: "OK",
+              });
+            }
+          });
       }
     });
   };
@@ -95,7 +94,9 @@ const [current , setCurrent] = useState(status);
       </td>
       <td>
         <div className=" w-1/2 space-y-3">
-          {( `${current}` === 'Completed') ? <></> : (
+          {`${current}` === "Completed" ? (
+            <></>
+          ) : (
             <button
               onClick={() => handleComplete(_id)}
               className="btn btn-info btn-sm rounded-md text-xs w-fit"
@@ -109,4 +110,4 @@ const [current , setCurrent] = useState(status);
   );
 };
 
-export default BidRow;
+export default ReqRow;
