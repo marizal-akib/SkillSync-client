@@ -43,7 +43,7 @@ const BidPage = () => {
       status
     };
     console.log(jobBid);
-    fetch("http://localhost:5000/bid", {
+    fetch("https://skill-sync-server.vercel.app/bid", {
       method: "POST",
       headers: {
         "content-type": "application/json",

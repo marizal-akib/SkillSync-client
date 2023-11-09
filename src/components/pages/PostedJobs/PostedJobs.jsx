@@ -20,7 +20,7 @@ const PostedJobs = () => {
   }, []);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/my_post?email=${email}&sortBy=deadline&order=asc`)
+    fetch(`https://skill-sync-server.vercel.app/my_post?email=${email}&sortBy=deadline&order=asc`)
       .then((res) => res.json())
       .then((data) => setJobs(data));
     setLoading(true);

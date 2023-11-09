@@ -22,7 +22,7 @@ const Request = () => {
     }, []);
   
     useEffect(() => {
-      fetch(`http://localhost:5000/bid_req?email=${email}&sortBy=deadline&order=asc`)
+      fetch(`https://skill-sync-server.vercel.app/bid_req?email=${email}&sortBy=deadline&order=asc`)
         .then((res) => res.json())
         .then((data) => setBids(data));
       setLoading(true);

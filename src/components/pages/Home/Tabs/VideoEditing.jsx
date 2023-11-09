@@ -16,7 +16,7 @@ const VideoEditing = () => {
 
   useEffect(() => {
     fetch(
-      `http://localhost:5000/jobs?page=${currentPage}&size=${jobPerPage}&category=${category}`
+      `https://skill-sync-server.vercel.app/jobs?page=${currentPage}&size=${jobPerPage}&category=${category}`
     )
       .then((res) => res.json())
       .then((data) => setJobs(data));
@@ -25,7 +25,7 @@ const VideoEditing = () => {
   }, [currentPage, jobPerPage]);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/all_jobs?&category=${category}`)
+    fetch(`https://skill-sync-server.vercel.app/all_jobs?&category=${category}`)
       .then((res) => res.json())
       .then((data) => setCount(data.length));
     setLoading(true);

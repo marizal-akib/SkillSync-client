@@ -31,7 +31,7 @@ const AddJobs = () => {
       description,
     };
     console.log(newJob);
-    fetch("http://localhost:5000/jobs", {
+    fetch("https://skill-sync-server.vercel.app/jobs", {
       method: "POST",
       headers: {
         "content-type": "application/json",

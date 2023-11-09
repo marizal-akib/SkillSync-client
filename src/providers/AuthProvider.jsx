@@ -46,7 +46,7 @@ const AuthProvider = ({ children }) => {
           email: currentUser.email,
           img: currentUser.photoURL,
         };
-        axios.post(" http://localhost:5000/user", user ,{withCredentials : true}) 
+        axios.post(" https://skill-sync-server.vercel.app/user", user ,{withCredentials : true}) 
         .then(data =>{
           console.log(data.data)
         })

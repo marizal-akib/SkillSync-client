@@ -57,7 +57,7 @@ const router = createBrowserRouter([
       {
         path: "/update_job/:id",
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/job_bid?id=${params.id}`),
+          fetch(`https://skill-sync-server.vercel.app/job_bid?id=${params.id}`),
         element: (
           <PrivateRout>
             <Update></Update>
@@ -71,7 +71,7 @@ const router = createBrowserRouter([
       {
         path: "/job/:id",
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/job_bid?id=${params.id}`),
+          fetch(`https://skill-sync-server.vercel.app/job_bid?id=${params.id}`),
         element: (
           <PrivateRout>
             <BidPage></BidPage>,

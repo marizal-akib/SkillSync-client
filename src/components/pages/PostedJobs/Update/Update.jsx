@@ -39,7 +39,7 @@ const Update = () => {
         description,
       };
       console.log(newJob);
-      fetch(`http://localhost:5000/update_job/${_id}`, {
+      fetch(`https://skill-sync-server.vercel.app/update_job/${_id}`, {
         method: "PUT",
         headers: {
           "content-type": "application/json",

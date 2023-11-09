@@ -33,7 +33,7 @@ const [current , setCurrent] = useState(status);
       confirmButtonText: "Yes, submit",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/complete_job/${_id}`, {
+        fetch(`https://skill-sync-server.vercel.app/complete_job/${_id}`, {
             method: "PUT",
             headers: {
               "content-type": "application/json",

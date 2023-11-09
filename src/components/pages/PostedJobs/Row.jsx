@@ -23,7 +23,7 @@ const Row = ({ job, currentDate,jobs,setJobs}) => {
         if (result.isConfirmed) {
         
         
-        fetch(`http://localhost:5000/job/${_id}`,{
+        fetch(`https://skill-sync-server.vercel.app/job/${_id}`,{
             method: 'DELETE'
         })
         .then(res=>res.json())

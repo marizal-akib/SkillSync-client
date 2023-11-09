@@ -13,14 +13,14 @@ const AllJob = () => {
   const pages = [...Array(numberOfPages).keys()];
 
   useEffect(() => {
-    fetch(`http://localhost:5000/jobs?page=${currentPage}&size=${jobPerPage}`)
+    fetch(`https://skill-sync-server.vercel.app/jobs?page=${currentPage}&size=${jobPerPage}`)
       .then((res) => res.json())
       .then((data) => setJobs(data));
     setLoading(true);
   }, [currentPage, jobPerPage]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/all_jobs")
+    fetch("https://skill-sync-server.vercel.app/all_jobs")
       .then((res) => res.json())
       .then((data) => setCount(data.length));
     setLoading(true);

@@ -21,11 +21,11 @@ const MyBids = () => {
     }, []);
   
     useEffect(() => {
-      fetch(`http://localhost:5000/my_bid?email=${email}&${selectedSort}`)
+      fetch(`https://skill-sync-server.vercel.app/my_bid?email=${email}&${selectedSort}`)
         .then((res) => res.json())
         .then((data) => setBids(data));
       setLoading(true);
-    },[email]);
+    },[email, selectedSort]);
   
     console.log(bids);
     const [selectedSort, setSelectedSort] = useState();

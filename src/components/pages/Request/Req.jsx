@@ -41,7 +41,7 @@ const Req = ({ bid,currentDate }) => {
       confirmButtonText: "Yes, submit",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/bid_req/${_id}`, {
+        fetch(`https://skill-sync-server.vercel.app/bid_req/${_id}`, {
           method: "PUT",
           headers: {
             "content-type": "application/json",
