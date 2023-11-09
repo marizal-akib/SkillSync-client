@@ -32,7 +32,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/my_bids",
-        element: <MyBids></MyBids>,
+        element: (
+          <PrivateRout>
+            <MyBids></MyBids>
+          </PrivateRout>
+        ),
       },
       {
         path: "/add_jobs",
@@ -49,7 +53,6 @@ const router = createBrowserRouter([
             <PostedJobs></PostedJobs>
           </PrivateRout>
         ),
-        
       },
       {
         path: "/update_job/:id",
@@ -60,7 +63,6 @@ const router = createBrowserRouter([
             <Update></Update>
           </PrivateRout>
         ),
-        
       },
       {
         path: "/registration",
@@ -70,7 +72,11 @@ const router = createBrowserRouter([
         path: "/job/:id",
         loader: ({ params }) =>
           fetch(`http://localhost:5000/job_bid?id=${params.id}`),
-        element: <BidPage></BidPage>,
+        element: (
+          <PrivateRout>
+            <BidPage></BidPage>,
+          </PrivateRout>
+        ),
       },
     ],
   },
