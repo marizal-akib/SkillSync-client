@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const BidRow = ({ bid }) => {
@@ -95,7 +95,7 @@ const [current , setCurrent] = useState(status);
       </td>
       <td>
         <div className=" w-1/2 space-y-3">
-          {( `${current}` === 'Completed') ? <></> : (
+          {( `${current}` === "In progress") && (
             <button
               onClick={() => handleComplete(_id)}
               className="btn btn-info btn-sm rounded-md text-xs w-fit"

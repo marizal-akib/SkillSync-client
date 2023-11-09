@@ -4,13 +4,13 @@ import Roots from "../Layout/Roots";
 import Error from "../pages/Error/Error";
 import Login from "../pages/Auth/Login";
 import Registration from "../pages/Auth/Registration";
-import BidReq from "../pages/BidReq/BidReq";
-import MyBids from "../pages/MyBids/MyBids";
+import MyBids from "../pages/MyBids/BidRow/MyBids";
 import AddJobs from "../pages/AddJobs/AddJobs";
 import PostedJobs from "../pages/PostedJobs/PostedJobs";
 import BidPage from "../pages/BidPage/BidPage";
 import PrivateRout from "./PrivateRoutes";
 import Update from "../pages/PostedJobs/Update/Update";
+import Request from "../pages/Request/Request";
 
 const router = createBrowserRouter([
   {
@@ -28,7 +28,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/bid_request",
-        element: <BidReq></BidReq>,
+        element: <Request></Request>,
       },
       {
         path: "/my_bids",

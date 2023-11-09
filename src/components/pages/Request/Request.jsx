@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-
 import useAuth from "../../../hooks/useAuth";
-import BidRow from "./BidRow/BidRow";
+import Req from "./Req";
 
 
-const MyBids = () => {
+
+const Request = () => {
     const [currentDate, setCurrentDate] = useState();
     const [loading, setLoading] = useState(false);
     const [bids, setBids] = useState([]);
@@ -22,7 +22,7 @@ const MyBids = () => {
     }, []);
   
     useEffect(() => {
-      fetch(`http://localhost:5000/my_bid?email=${email}&sortBy=deadline&order=asc`)
+      fetch(`http://localhost:5000/bid_req?email=${email}&sortBy=deadline&order=asc`)
         .then((res) => res.json())
         .then((data) => setBids(data));
       setLoading(true);
@@ -48,7 +48,7 @@ const MyBids = () => {
                   <tbody>
                     {/* row 1 */}
                     {bids.map((bid) => (
-                      <BidRow key={bid._id} bid={bid} currentDate={currentDate} setBids={setBids} bids={bids}></BidRow>
+                      <Req key={bid._id} bid={bid} currentDate={currentDate} setBids={setBids} bids={bids}></Req>
                     ))}
                   </tbody>
                   {/* foot */}
@@ -64,4 +64,4 @@ const MyBids = () => {
       );
 };
 
-export default MyBids;
+export default Request;

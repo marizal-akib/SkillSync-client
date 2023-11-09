@@ -1,28 +1,36 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import "react-step-progress-bar/styles.css";
+import { ProgressBar } from "react-step-progress-bar";
 
-const ReqRow = ({bid}) => {
+const Req = ({ bid,currentDate }) => {
   const {
     _id,
     jobTitle,
     jobId,
-    employerEmail,
-    // bidderEmail,
+    // employerEmail,
+    bidderEmail,
     offerPrice,
     offerDeadline,
     status,
   } = bid;
   const [current, setCurrent] = useState(status);
+  const [value, setValue] = useState(status);
 
   const handleComplete = (_id) => {
     console.log(_id);
-    const status = "Completed";
+    const on = [value];
+
+    const status = on[0];
 
     const done = {
       status,
     };
+
+    console.log(done);
+
     Swal.fire({
       title: "Are you sure?",
       text: "Please double check before submitting",
@@ -33,7 +41,7 @@ const ReqRow = ({bid}) => {
       confirmButtonText: "Yes, submit",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/complete_job/${_id}`, {
+        fetch(`http://localhost:5000/bid_req/${_id}`, {
           method: "PUT",
           headers: {
             "content-type": "application/json",
@@ -59,12 +67,29 @@ const ReqRow = ({bid}) => {
       }
     });
   };
+
+  const date1 = new Date(`${currentDate}`);
+  const date2 = new Date(`${offerDeadline}`);
+
+  const differenceInMs = Math.abs(date2 - date1);
+
+  const differenceInDays = differenceInMs / (1000 * 60 * 60 * 24);
+
+  const maxDifference = 5; // Maximum difference in days
+  const progress = (differenceInDays / maxDifference) *10;
+  console.log(progress);
   return (
     <tr>
       <th>
         <label>
-          <div>
+          <div className="space-y-2">
             <h2 className="text-xs font-semibold">{current}</h2>
+            {
+                (current === "In progress" ) && <ProgressBar
+                percent={progress}
+                filledBackground="linear-gradient(to right, #fefb72, #f0bb31)"
+              />
+            }
           </div>
         </label>
       </th>
@@ -79,7 +104,7 @@ const ReqRow = ({bid}) => {
       <td>
         <div className="flex flex-col items-start space-y-2">
           <div>
-            <p>{employerEmail}</p>
+            <p>{bidderEmail}</p>
           </div>
           <p>{offerDeadline}</p>
           <div>
@@ -93,21 +118,28 @@ const ReqRow = ({bid}) => {
         </div>
       </td>
       <td>
-        <div className=" w-1/2 space-y-3">
-          {`${current}` === "Completed" ? (
-            <></>
-          ) : (
-            <button
-              onClick={() => handleComplete(_id)}
-              className="btn btn-info btn-sm rounded-md text-xs w-fit"
-            >
-              Complete
-            </button>
-          )}
+        <div className="flex flex-col w-1/2 space-y-3">
+            {
+                (  `${current}` === "Pending" ) &&
+            <>
+          <button
+            onClick={() => handleComplete(_id, setValue("In progress"))}
+            className="btn btn-success btn-sm rounded-md text-xs w-fit "
+          >
+            Accept
+          </button>
+          <button
+            onClick={() => handleComplete(_id, setValue("Rejected"))}
+            className="btn bg-orange-400 btn-sm rounded-md text-xs w-fit"
+          >
+            Reject
+          </button>
+            </>
+            }
         </div>
       </td>
     </tr>
   );
 };
 
-export default ReqRow;
+export default Req;
