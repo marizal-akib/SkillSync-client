@@ -86,7 +86,9 @@ const AllJob = () => {
           </div>
         </>
       ) : (
-        <span className="loading loading-infinity loading-lg"></span>
+        <div className=" p-80 ml-64 ">
+<span className=" loading loading-infinity loading-lg"></span>
+</div>
       )}
     </div>
   );

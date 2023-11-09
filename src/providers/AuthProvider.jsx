@@ -41,9 +41,9 @@ const AuthProvider = ({ children }) => {
       setUser(currentUser);
       setLoading(false);
       const user = {
-        userName: currentUser?.displayName,
-        email: currentUser?.email,
-        img: currentUser?.photoURL,
+        userName: currentUser.displayName,
+        email: currentUser.email,
+        img: currentUser.photoURL,
       };
       axios.post(" http://localhost:5000/user", user ) 
       .then(data =>{

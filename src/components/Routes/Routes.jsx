@@ -9,6 +9,8 @@ import MyBids from "../pages/MyBids/MyBids";
 import AddJobs from "../pages/AddJobs/AddJobs";
 import PostedJobs from "../pages/PostedJobs/PostedJobs";
 import BidPage from "../pages/BidPage/BidPage";
+import PrivateRout from "./PrivateRoutes";
+import Update from "../pages/PostedJobs/Update/Update";
 
 const router = createBrowserRouter([
   {
@@ -22,34 +24,55 @@ const router = createBrowserRouter([
       },
       {
         path: "/login",
-        element: <Login></Login>
+        element: <Login></Login>,
       },
       {
         path: "/bid_request",
-        element: <BidReq></BidReq>
+        element: <BidReq></BidReq>,
       },
       {
         path: "/my_bids",
-        element: <MyBids></MyBids>
+        element: <MyBids></MyBids>,
       },
       {
         path: "/add_jobs",
-        element: <AddJobs></AddJobs>
+        element: (
+          <PrivateRout>
+            <AddJobs></AddJobs>
+          </PrivateRout>
+        ),
       },
       {
         path: "/posted_jobs",
-        element: <PostedJobs></PostedJobs>
+        element: (
+          <PrivateRout>
+            <PostedJobs></PostedJobs>
+          </PrivateRout>
+        ),
+        
+      },
+      {
+        path: "/update_job/:id",
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/job_bid?id=${params.id}`),
+        element: (
+          <PrivateRout>
+            <Update></Update>
+          </PrivateRout>
+        ),
+        
       },
       {
         path: "/registration",
-        element: <Registration></Registration>
+        element: <Registration></Registration>,
       },
       {
         path: "/job/:id",
-        loader: ({params}) => fetch(`http://localhost:5000/job_bid?id=${params.id}`),
-        element: <BidPage></BidPage>
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/job_bid?id=${params.id}`),
+        element: <BidPage></BidPage>,
       },
-    ]
+    ],
   },
 ]);
 

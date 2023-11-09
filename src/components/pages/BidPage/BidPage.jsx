@@ -1,4 +1,5 @@
 import { Link, useLoaderData } from "react-router-dom";
+
 const BidPage = () => {
   const jobData = useLoaderData();
 
@@ -10,7 +11,8 @@ const BidPage = () => {
 
   return (
     <div>
-      <h2>{jobTitle}</h2>
+      {jobTitle}
+      {description}
     </div>
   );
 };
