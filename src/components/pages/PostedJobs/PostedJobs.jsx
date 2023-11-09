@@ -50,7 +50,7 @@ const PostedJobs = () => {
               <tbody>
                 {/* row 1 */}
                 {jobs.map((job) => (
-                  <Row key={job._id} job={job} currentDate={currentDate}></Row>
+                  <Row key={job._id} job={job} currentDate={currentDate} setJobs={setJobs} jobs={jobs}></Row>
                 ))}
               </tbody>
               {/* foot */}
