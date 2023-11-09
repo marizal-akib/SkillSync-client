@@ -7,12 +7,6 @@ const AddJobs = () => {
   const { user } = useContext(AuthContext);
 
   console.log(user?.email);
-  //   jobTitle
-  //  Deadline
-  //   description
-  //   category
-  //   minPrice
-  //   maxPrice
 
   const handleAddJob = (e) => {
     e.preventDefault();

@@ -1,6 +1,8 @@
 import { Link, useLoaderData } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import Swal from "sweetalert2";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const BidPage = () => {
   const jobData = useLoaderData();
@@ -28,7 +30,8 @@ const BidPage = () => {
     const jobId = _id ;
     const bidderEmail = user.email;
     const offerDeadline = form.deadline.value;
-    const offerPrice = form.offerPricePrice.value;
+    const offerPrice = form.offerPrice.value;
+    const status = 'Pending'
 
     const jobBid = {
       jobTitle,
@@ -37,6 +40,7 @@ const BidPage = () => {
       bidderEmail,
       offerPrice,
       offerDeadline,
+      status
     };
     console.log(jobBid);
     fetch("http://localhost:5000/bid", {
@@ -57,8 +61,12 @@ const BidPage = () => {
             text: "Job requested successfully",
             icon: "success",
             confirmButtonText: "Cool",
-          });
+          })
         }
+      })
+      .catch((error) => {
+        console.error(error);
+        toast("Already Sent a request for this");
       });
   };
 
@@ -159,6 +167,7 @@ const BidPage = () => {
           </p>
         </div>
       </div>
+      <ToastContainer/>
     </div>
   );
 };
