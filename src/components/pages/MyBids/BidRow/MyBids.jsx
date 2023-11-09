@@ -11,7 +11,6 @@ const MyBids = () => {
     const {user} = useAuth();
     const email = user?.email;
   
-  
     useEffect(() => {
       const today = new Date();
       const month = today.getMonth() + 1;
@@ -22,14 +21,15 @@ const MyBids = () => {
     }, []);
   
     useEffect(() => {
-      fetch(`http://localhost:5000/my_bid?email=${email}&sortBy=deadline&order=asc`)
+      fetch(`http://localhost:5000/my_bid?email=${email}&${selectedSort}`)
         .then((res) => res.json())
         .then((data) => setBids(data));
       setLoading(true);
     },[email]);
   
     console.log(bids);
-  
+    const [selectedSort, setSelectedSort] = useState();
+    
     return (
         <div>
           {loading ? (
@@ -42,7 +42,19 @@ const MyBids = () => {
                       <th></th>
                       <th>To-Day : {currentDate}</th>
                       <th className="text-2xl text-start">My Bids</th>
-                      <th></th>
+                      <th>
+                      <select
+                  className="md:text-lg border-none"
+                  value={selectedSort}
+                  onChange={(e) => setSelectedSort(e.target.value)}
+                  name="category"
+                >
+                  <option value="sortBy=deadline">Normal</option>
+                  <option value="sortBy=deadline&order=asc">Deadline low to high</option>
+                  <option value="sortBy=deadline&order=desc">Deadline high to low </option>
+                
+                </select>
+                      </th>
                     </tr>
                   </thead>
                   <tbody>

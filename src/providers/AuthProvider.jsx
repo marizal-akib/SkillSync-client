@@ -40,15 +40,18 @@ const AuthProvider = ({ children }) => {
       console.log("current user", currentUser);
       setUser(currentUser);
       setLoading(false);
-      const user = {
-        userName: currentUser.displayName,
-        email: currentUser.email,
-        img: currentUser.photoURL,
-      };
-      axios.post(" http://localhost:5000/user", user ) 
-      .then(data =>{
-        console.log(data.data)
-      })
+      if(currentUser){
+        const user = {
+          userName: currentUser.displayName,
+          email: currentUser.email,
+          img: currentUser.photoURL,
+        };
+        axios.post(" http://localhost:5000/user", user ,{withCredentials : true}) 
+        .then(data =>{
+          console.log(data.data)
+        })
+        
+      }
     });
     return () => {
       unSubscribe();
