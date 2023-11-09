@@ -88,7 +88,8 @@ const BidPage = () => {
           </div>
           <div className="text-end">
             <input
-              className="btn btn-success rounded-md   text-blue-900"
+              className='btn btn-success rounded-md text-blue-900 '
+              disabled={user?.email === employerEmail}
               type="submit"
               value="Update job"
             />
