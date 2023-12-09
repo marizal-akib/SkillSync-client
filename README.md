@@ -35,6 +35,6 @@ To get started with the SkillSync web application, simply follow the live link p
 
 ## Contributor
 
-- [Your Name](https://github.com/your-username)
+- [Sayed Mariz Al Akib](https://github.com/marizal-akib)
 
 Feel free to explore the application and provide any feedback or suggestions for improvement.
